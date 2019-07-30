@@ -13,6 +13,7 @@ app.use(body_parser.json());
 
 // routes
  app.use('/v1', require('./routes/lecturer_class_report'));
+ app.use('/v1', require('./routes/lecturer'));
 
 
 
