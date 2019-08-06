@@ -46,11 +46,11 @@ router.post('/api/csv_upload', upload.single('myfile'), async(req, res, next) =>
                 // .where("name", '=', req.query.name);
                 // lecturer_id =  result[0].id
 
-                let insertedId = await knex("public.lecture")
+                let inserted_id = await knex("public.lecture")
                     .insert({
                     name: add_users.Class_Date
                 }).returning('id');
-                lecturer_id = parseInt(insertedId.toString());
+                lecturer_id = parseInt(inserted_id.toString());
                
             }
            
