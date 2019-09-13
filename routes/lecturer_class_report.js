@@ -29,6 +29,8 @@ router.post('/api/csv_upload', upload.single('myfile'), async(req, res, next) =>
 
         const new_users = await csv_to_json(data);
 
+        console.log(new_users);
+
         // take one data in new_user
         let lecturer_id = 0;
 
@@ -73,6 +75,7 @@ router.post('/api/csv_upload', upload.single('myfile'), async(req, res, next) =>
             // if(i === 25)
             // break;
 
+            await 
         }
 
         return res
