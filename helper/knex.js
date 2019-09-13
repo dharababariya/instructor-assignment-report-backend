@@ -22,16 +22,11 @@
 //   })
 
 const config = {
+  host: 'instructor-assignment-report.cnwis3jkhsul.us-east-2.rds.amazonaws.com',
   user: 'postgres',
   password: 'postgres',
   database: 'instructor_report',
 };
-
-if (
-  process.env.NODE_ENV === 'production'
-) {
-  config.host = '/cloudsql/instructor-assignment-report.cnwis3jkhsul.us-east-2.rds.amazonaws.com';
-}
 
 // Connect to the database
 const knex = require('knex')({
