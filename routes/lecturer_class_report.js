@@ -74,8 +74,7 @@ router.post('/api/csv_upload', upload.single('myfile'), async(req, res, next) =>
 
             // if(i === 25)
             // break;
-
-            await 
+            
         }
 
         return res
