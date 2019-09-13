@@ -34,7 +34,7 @@ if (
 }
 
 // Connect to the database
-const knex = Knex({
+const knex = require('knex')({
   client: 'pg',
   connection: config,
 });
