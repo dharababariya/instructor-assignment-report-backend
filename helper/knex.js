@@ -12,13 +12,14 @@
 
 const knex = require('knex')({
 
-    client: 'postgresql',
+    client: 'pg',
     connection: process.env.DATABASE_URL,
     pool: {
-      min: 0,
+      min: 2,
       max: 10
     },
-    acquireConnectionTimeout: 1000
+    ssl: true,
+    debug: false
   })
 
 
