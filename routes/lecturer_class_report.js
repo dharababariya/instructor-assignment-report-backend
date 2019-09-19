@@ -29,7 +29,7 @@ router.post('/api/csv_upload', upload.single('myfile'), async(req, res, next) =>
 
         const new_users = await csv_to_json(data);
 
-        console.log(new_users);
+       // console.log(new_users);
 
         // take one data in new_user
         let lecturer_id = 0;
@@ -48,7 +48,7 @@ router.post('/api/csv_upload', upload.single('myfile'), async(req, res, next) =>
                 // .where("name", '=', req.query.name);
                 // lecturer_id =  result[0].id
 
-                let inserted_id = await knex("public.lecture")
+                let inserted_id = await knex("public.lecture").transacting(trx)
                     .insert({
                     name: add_users.Class_Date
                 }).returning('id');
