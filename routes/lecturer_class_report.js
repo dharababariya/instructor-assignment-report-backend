@@ -8,7 +8,7 @@ const upload = multer({
 
 const knex = require('../helper/knex');
 
-router.post('/api/csv_upload', upload.single('myfile'), async(req, res,trx, next) => {
+router.post('/api/csv_upload', upload.single('myfile'), async(req, res, next) => {
 
     try {
 
@@ -51,7 +51,7 @@ router.post('/api/csv_upload', upload.single('myfile'), async(req, res,trx, next
                 // .where("name", '=', req.query.name);
                 // lecturer_id =  result[0].id
 
-                let inserted_id = await knex("public.lecture").transacting(trx)
+                let inserted_id = await knex("public.lecture")
                     .insert({
                     name: add_users.Class_Date
                 }).returning('id');
@@ -61,7 +61,7 @@ router.post('/api/csv_upload', upload.single('myfile'), async(req, res,trx, next
            
             console.log(4)
 
-            const result = await knex("public.lecturer_class_report").transacting(trx)
+            const result = await knex("public.lecturer_class_report")
                 .insert({
 
                 class_date: add_users.Class_Date,
