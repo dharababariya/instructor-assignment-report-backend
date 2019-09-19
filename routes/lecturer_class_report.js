@@ -15,6 +15,7 @@ router.post('/api/csv_upload', upload.single('myfile'), async(req, res,trx, next
         //csv file uplode
 
         const csv_file = String(req.file.buffer);
+        console.log(1)
 
         //content data
 
@@ -24,12 +25,14 @@ router.post('/api/csv_upload', upload.single('myfile'), async(req, res,trx, next
             },
             derived: {}
         };
+        console.log(2)
 
         //covert csv to json
 
         const new_users = await csv_to_json(data);
 
        // console.log(new_users);
+       console.log(3)
 
         // take one data in new_user
         let lecturer_id = 0;
@@ -56,6 +59,7 @@ router.post('/api/csv_upload', upload.single('myfile'), async(req, res,trx, next
                
             }
            
+            console.log(4)
 
             const result = await knex("public.lecturer_class_report").transacting(trx)
                 .insert({
@@ -71,11 +75,14 @@ router.post('/api/csv_upload', upload.single('myfile'), async(req, res,trx, next
                 reg: add_users.Regd,
                 lecturer_id: lecturer_id
             }).returning('*');
-
+console.log(5)
             // if(i === 25)
+
+
             // break;
             
         }
+        console.log(6)
 
         return res
             .status(200)
@@ -86,7 +93,10 @@ router.post('/api/csv_upload', upload.single('myfile'), async(req, res,trx, next
             console.error(error)
         return res
             .status(400)
-            .send({status: ' ⚠️ Not Valid'})
+            .send({status: ' ⚠️ Not Valid',
+            error:error.message
+        
+        })
             .json();
 
     }
