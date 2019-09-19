@@ -8,7 +8,7 @@ const upload = multer({
 
 const knex = require('../helper/knex');
 
-router.post('/api/csv_upload', upload.single('myfile'), async(req, res, next) => {
+router.post('/api/csv_upload', upload.single('myfile'), async(req, res,trx, next) => {
 
     try {
 
@@ -83,7 +83,7 @@ router.post('/api/csv_upload', upload.single('myfile'), async(req, res, next) =>
             .json(data);
 
     } catch (error) {
-console.error(error)
+            console.error(error)
         return res
             .status(400)
             .send({status: ' ⚠️ Not Valid'})
