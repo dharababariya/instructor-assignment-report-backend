@@ -16,7 +16,11 @@ const knex = require('knex')({
     connection: process.env.DATABASE_URL,
     pool: {
       min: 2,
-      max: 10
+      max: 10,
+      
+        "idleTimeoutMillis": 30000,
+        "createTimeoutMillis": 30000,
+        "acquireTimeoutMillis": 30000
     },
     ssl : true,
     debug: false
