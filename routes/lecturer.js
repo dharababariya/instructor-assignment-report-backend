@@ -6,7 +6,7 @@ const knex = require('../helper/knex');
 
 // get lecturer wise class
 
-router.get('/api/get_users', async(req, res) => {
+router.get('/api/get_users', async(req, res , trx) => {
 
     const result = await knex("public.lecture").transacting(trx)
         .select("*")
