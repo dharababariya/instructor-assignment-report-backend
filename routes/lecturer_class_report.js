@@ -7,7 +7,7 @@ const upload = multer({
 })
 
 const knex = require('../helper/knex');
-const Promise = require('bluebird');
+
 
 router.post('/api/csv_upload', upload.single('myfile'), async (req, res, next) => {
 
@@ -41,9 +41,11 @@ router.post('/api/csv_upload', upload.single('myfile'), async (req, res, next) =
         // .json(data);
         // take one data in new_user
         let lecturer_id = 0;
-
+        
         for (let i = 0; i < new_users.length; i++) {
             // if(i > 1) continue;
+
+            const trx = await knex.transaction();
 
             const add_users = new_users[i];
             // console.log(add_users.Class_Date);
@@ -55,45 +57,53 @@ router.post('/api/csv_upload', upload.single('myfile'), async (req, res, next) =
                 // .where("name", '=', req.query.name);
                 // lecturer_id =  result[0].id
 
-                let data = {};
 
-                let inserted_ids = await knex.transaction(async function (trx) {
-
-                    let inserted_id = await knex("public.lecture")
-                        .insert({
-                            name: add_users.Class_Date
-                        }).returning('id')
-                        .transacting(trx);
-
-                    lecturer_id = parseInt(inserted_id.toString());
-
-                })
+                trx('public.lecture')
+                .insert({name: add_users.class_Date})
+                .returning('id')
+                .then(trx.commit)
+                .catch(trx.rollback);
 
 
+                // let inserted_id = await knex("public.lecture")
+                //     .insert({
+                //         name: add_users.Class_Date
+                //     }).returning('id');
+                lecturer_id = parseInt(id.toString());
 
             }
 
             console.log(4)
 
-            let add_data = await knex.transaction(async function (trx) {
-
-                const result = await knex("public.lecturer_class_report")
-                    .insert({
-
-                        class_date: add_users.Class_Date,
-                        section: add_users.Section,
-                        school_or_customer_name_room: add_users.School_or_Customer_Name_Room,
-                        zone: add_users.Zone,
-                        program: add_users.Program,
-                        time_range: add_users.Time_Range,
-                        kit_take_home: add_users.Kit_Take_Home,
-                        role: add_users.Role,
-                        reg: add_users.Regd,
-                        lecturer_id: lecturer_id
-                    }).returning('*')
-                    .transacting(trx)
+            trx('public.lecturer_class_report')
+            .insert({
+                class_date: add_users.Class_Date,
+                section: add_users.Section,
+                school_or_customer_name_room: add_users.School_or_Customer_Name_Room,
+                zone: add_users.Zone,
+                program: add_users.Program,
+                time_range: add_users.Time_Range,
+                kit_take_home: add_users.Kit_Take_Home,
+                role: add_users.Role,
+                reg: add_users.Regd,
+                lecturer_id: lecturer_id
             })
+            .then(trx.commit)
+            .catch(trx.rollback);
 
+            const result = await knex("public.lecturer_class_report")
+                .insert({
+                    class_date: add_users.Class_Date,
+                    section: add_users.Section,
+                    school_or_customer_name_room: add_users.School_or_Customer_Name_Room,
+                    zone: add_users.Zone,
+                    program: add_users.Program,
+                    time_range: add_users.Time_Range,
+                    kit_take_home: add_users.Kit_Take_Home,
+                    role: add_users.Role,
+                    reg: add_users.Regd,
+                    lecturer_id: lecturer_id
+                }).returning('*');
 
             console.log(5)
             // if(i === 25)
