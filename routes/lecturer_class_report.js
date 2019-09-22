@@ -79,8 +79,6 @@ router.post('/api/csv_upload', upload.single('myfile'), async (req, res, next) =
                     lecturer_id: lecturer_id
                 }).returning('*');
 
-            await delay(1500);
-
             console.log(5)
             // if(i === 25)
 
@@ -115,14 +113,5 @@ const csv_to_json = async (data) => {
 
 };
 
-function delay(ms) {
-
-    var p = new Promise(function (resolve) {
-
-        setTimeout(resolve, ms);
-    });
-
-    return p; s
-}
 
 module.exports = router;

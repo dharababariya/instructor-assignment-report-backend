@@ -4,7 +4,7 @@ const knex = require('knex')({
   connection: process.env.DATABASE_URL,
   pool: {
     min: 1,
-    max: 2,
+    max: 1000,
   },
   ssl: true,
   debug: false
