@@ -34,6 +34,10 @@ router.post('/api/csv_upload', upload.single('myfile'), async(req, res, next) =>
        // console.log(new_users);
        console.log(3)
 
+       res
+            .status(200)
+            .send({status: 'SUCCESS', message: 'Successfully Added File ✅️' })
+            .json(data);
         // take one data in new_user
         let lecturer_id = 0;
 
@@ -84,10 +88,7 @@ console.log(5)
         }
         console.log(6)
 
-        return res
-            .status(200)
-            .send({status: 'SUCCESS', message: 'Successfully Added File ✅️' })
-            .json(data);
+        return 
 
     } catch (error) {
             console.error(error)
