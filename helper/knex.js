@@ -6,7 +6,6 @@ const knex = require('knex')({
     min: 1,
     max: 2,
   },
-  acquireConnectionTimeout: 2000,
   ssl: true,
   debug: false
 })
