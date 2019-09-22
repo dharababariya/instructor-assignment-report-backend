@@ -7,6 +7,7 @@ const upload = multer({
 })
 
 const knex = require('../helper/knex');
+const Promise = require('bluebird');
 
 router.post('/api/csv_upload', upload.single('myfile'), async (req, res, next) => {
 
@@ -41,29 +42,40 @@ router.post('/api/csv_upload', upload.single('myfile'), async (req, res, next) =
         // take one data in new_user
         let lecturer_id = 0;
 
-        try {
-            for (let i = 0; i < new_users.length; i++) {
-                // if(i > 1) continue;
+        for (let i = 0; i < new_users.length; i++) {
+            // if(i > 1) continue;
 
-                const add_users = new_users[i];
-                // console.log(add_users.Class_Date);
-                let classDate = await add_users.Class_Date.toLowerCase();
-                if (classDate.includes('inactive!') || classDate.includes(',')) {
+            const add_users = new_users[i];
+            // console.log(add_users.Class_Date);
+            let classDate = await add_users.Class_Date.toLowerCase();
+            if (classDate.includes('inactive!') || classDate.includes(',')) {
 
-                    // const result = await knex("public.authors")
-                    // .select("*")
-                    // .where("name", '=', req.query.name);
-                    // lecturer_id =  result[0].id
+                // const result = await knex("public.authors")
+                // .select("*")
+                // .where("name", '=', req.query.name);
+                // lecturer_id =  result[0].id
+
+                let data = {};
+
+                let inserted_ids = await knex.transaction(async function (trx) {
 
                     let inserted_id = await knex("public.lecture")
                         .insert({
                             name: add_users.Class_Date
-                        }).returning('id');
+                        }).returning('id')
+                        .transacting(trx);
+
                     lecturer_id = parseInt(inserted_id.toString());
 
-                }
+                })
 
-                console.log(4)
+
+
+            }
+
+            console.log(4)
+
+            let add_data = await knex.transaction(async function (trx) {
 
                 const result = await knex("public.lecturer_class_report")
                     .insert({
@@ -78,24 +90,22 @@ router.post('/api/csv_upload', upload.single('myfile'), async (req, res, next) =
                         role: add_users.Role,
                         reg: add_users.Regd,
                         lecturer_id: lecturer_id
-                    }).returning('*');
+                    }).returning('*')
+                    .transacting(trx)
+            })
 
-                console.log(5)
-                // if(i === 25)
+
+            console.log(5)
+            // if(i === 25)
 
 
-                // break;
+            // break;
 
-            }
-            console.log(6)
-
-            
-        } catch (error) {
-
-            throw error;
         }
+        console.log(6)
 
         return
+
     } catch (error) {
         console.error(error)
         return res
