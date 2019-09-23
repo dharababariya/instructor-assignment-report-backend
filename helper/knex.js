@@ -1,7 +1,13 @@
 const knex = require('knex')({
 
   client: 'postgresql',
-  connection: process.env.DATABASE_URL,
+  connection: {
+
+    host : '206.189.141.120',
+    user : 'postgres',
+    password : 'postgres',
+    database : 'instructor-report'
+  },
   pool: {
     min: 1,
     max: 2,
