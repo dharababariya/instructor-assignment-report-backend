@@ -6,7 +6,7 @@ const knex = require('../helper/knex');
 
 // get lecturer wise class
 
-router.get('/api/get_users', async(req, res) => {
+router.get('/api/get_users', async(req, res ) => {
 
     const result = await knex("public.lecture")
         .select("*")
@@ -15,7 +15,6 @@ router.get('/api/get_users', async(req, res) => {
         // console.log(result[0].id);
 
     const resultDetail = await knex("public.lecturer_class_report")
-    .select("*")
     .where("lecturer_id", '=',result[0].id);
 
     return res
