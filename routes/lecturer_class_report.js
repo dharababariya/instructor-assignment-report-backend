@@ -73,7 +73,7 @@ router.post('/api/csv_upload', upload.single('myfile'), async (req, res, next) =
                     role: add_users.Role,
                     reg: add_users.Regd,
                     lecturer_id: lecturer_id
-                }).returning('*');
+                })
 
             // if(i === 25)
             res
