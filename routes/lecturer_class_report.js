@@ -33,9 +33,9 @@ router.post('/api/csv_upload', upload.single('myfile'), async (req, res, next) =
         //covert csv to json
 
         const new_users = await csv_to_json(data);
-
-        console.log(new_users);
-     
+      
+        // console.log(new_users);
+       
         
         // .json(data);
 
@@ -63,7 +63,8 @@ router.post('/api/csv_upload', upload.single('myfile'), async (req, res, next) =
                 lecturer_id = parseInt(inserted_id.toString());
 
             }
-
+try {
+    
             const result = await knex("public.lecturer_class_report")
                 .insert({
                     class_date: add_users.Class_Date,
@@ -77,11 +78,14 @@ router.post('/api/csv_upload', upload.single('myfile'), async (req, res, next) =
                     reg: add_users.Regd,
                     lecturer_id: lecturer_id
                 })
-                console.log(result)
+               // console.log(result)
             // if(i === 25)
-                 console.log('----------------')
-                  console.error(error)
-                  console.log('----------------')
+        } catch (error) { 
+
+
+            console.error(error)
+         }
+
             res
             .status(200)
             .send({ status: 'SUCCESS',
@@ -102,7 +106,7 @@ router.post('/api/csv_upload', upload.single('myfile'), async (req, res, next) =
             .status(400)
             .send({
                 status: '⚠️ Not Valid',
-                message: error,
+                message: error.message,
 
             })
             .json();
