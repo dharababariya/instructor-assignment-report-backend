@@ -16,9 +16,9 @@ router.post('/api/csv_upload', upload.single('myfile'), async (req, res, next) =
         //csv file uplode
 
         const csv_file = String(req.file.buffer);
-        console.log('---------------------')
-       console.log(csv_file)
-       console.log('---------------------')
+       
+      // console.log(csv_file)
+       
 
         //content data
 
@@ -50,12 +50,6 @@ router.post('/api/csv_upload', upload.single('myfile'), async (req, res, next) =
             let classDate = await add_users.Class_Date.toLowerCase();
             if (classDate.includes('inactive!') || classDate.includes(',')) {
 
-                // const result = await knex("public.authors")
-                // .select("*")
-                // .where("name", '=', req.query.name);
-                // lecturer_id =  result[0].i
-
-
                 let inserted_id = await knex("public.lecture")
                     .insert({
                         name: add_users.Class_Date
@@ -63,7 +57,6 @@ router.post('/api/csv_upload', upload.single('myfile'), async (req, res, next) =
                 lecturer_id = parseInt(inserted_id.toString());
 
             }
-try {
     
             const result = await knex("public.lecturer_class_report")
                 .insert({
@@ -80,11 +73,6 @@ try {
                 })
                // console.log(result)
             // if(i === 25)
-        } catch (error) { 
-
-
-            console.error(error)
-         }
 
             res
             .status(200)
