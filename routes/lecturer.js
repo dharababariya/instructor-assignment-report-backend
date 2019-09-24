@@ -17,9 +17,9 @@ router.get('/api/get_users', async(req, res ) => {
         .select("*")
         .where("name", '=', req.query.name);
 
-        console.log(result)
+      //  console.log(result)
 
-       console.log(result[0].id);
+      // console.log(result[0].id);
 
     const resultDetail = await knex("public.lecturer_class_report")
     .where("lecturer_id", '=',result[0].id);
@@ -28,9 +28,9 @@ router.get('/api/get_users', async(req, res ) => {
 
    // console.log(resultDetail)
 
-    return res
+    res
         .status(200)
-        .send({status: 'SUCCESS', resultDetail});
+        .send({status: 'SUCCESS ✅️', resultDetail});
 
 
     } catch (error) {
