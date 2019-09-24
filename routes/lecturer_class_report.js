@@ -16,7 +16,9 @@ router.post('/api/csv_upload', upload.single('myfile'), async (req, res, next) =
         //csv file uplode
 
         const csv_file = String(req.file.buffer);
-       
+        console.log('---------------------')
+       console.log(csv_file)
+       console.log('---------------------')
 
         //content data
 
@@ -32,10 +34,11 @@ router.post('/api/csv_upload', upload.single('myfile'), async (req, res, next) =
 
         const new_users = await csv_to_json(data);
 
-        // console.log(new_users);
+        console.log(new_users);
      
         
         // .json(data);
+
         // take one data in new_user
         let lecturer_id = 0;
         
@@ -74,12 +77,17 @@ router.post('/api/csv_upload', upload.single('myfile'), async (req, res, next) =
                     reg: add_users.Regd,
                     lecturer_id: lecturer_id
                 })
-
+                console.log(result)
             // if(i === 25)
+                 console.log('----------------')
+                  console.error(error)
+                  console.log('----------------')
             res
             .status(200)
-            .send({ status: 'SUCCESS', message: 'Successfully Added File ✅️' })
-            .setHeader("Content-Type", "application/x-www-form-urlencoded");
+            .send({ status: 'SUCCESS',
+                     message: 'Successfully Added File ✅️',  
+         })
+
 
             // break;
 
@@ -93,7 +101,7 @@ router.post('/api/csv_upload', upload.single('myfile'), async (req, res, next) =
         return res
             .status(400)
             .send({
-                status: ' ⚠️ Not Valid',
+                status: '⚠️ Not Valid',
                 message: error,
 
             })
