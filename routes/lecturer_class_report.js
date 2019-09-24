@@ -55,9 +55,10 @@ router.post('/api/csv_upload', upload.single('myfile'), async (req, res, next) =
                         name: add_users.Class_Date
                     }).returning('id');
                 lecturer_id = parseInt(inserted_id.toString());
+                console.log(lecturer_id)
 
             }
-    console.log(inserted_id)
+  
             const result = await knex("public.lecturer_class_report")
                 .insert({
                     class_date: add_users.Class_Date,
