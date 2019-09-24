@@ -79,6 +79,7 @@ router.post('/api/csv_upload', upload.single('myfile'), async (req, res, next) =
             res
             .status(200)
             .send({ status: 'SUCCESS', message: 'Successfully Added File ✅️' })
+            .setHeader("Content-Type", "application/x-www-form-urlencoded");
 
             // break;
 
