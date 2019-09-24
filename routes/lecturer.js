@@ -13,7 +13,7 @@ router.get('/api/get_users', async(req, res ) => {
 
     const result = await knex("public.lecture")
         .select("*")
-        .where("name", '=', req.query.name);
+        .where("name", '=', req.params.name);
 
         console.log(result)
 
