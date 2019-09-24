@@ -55,6 +55,8 @@ router.post('/api/csv_upload', upload.single('myfile'), async (req, res, next) =
                     .insert({
                         name: add_users.Class_Date
                     }).returning('id');
+
+                    console.log(inserted_id);
                 lecturer_id = parseInt(inserted_id.toString());
 
             }
