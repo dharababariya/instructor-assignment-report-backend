@@ -74,7 +74,7 @@ router.post('/api/csv_upload', upload.single('myfile'), async (req, res, next) =
                // console.log(result)
             // if(i === 25)
 
-            res
+            return   res
             .status(200)
             .send({ status: 'SUCCESS',
                      message: 'Successfully Added File ✅️',  
@@ -86,18 +86,15 @@ router.post('/api/csv_upload', upload.single('myfile'), async (req, res, next) =
         }
        
 
-        return
-
     } catch (error) {
         console.error(error)
-        return res
+         res
             .status(400)
             .send({
                 status: '⚠️ Not Valid',
                 message: error.message,
 
             })
-            .json();
 
     }
 
