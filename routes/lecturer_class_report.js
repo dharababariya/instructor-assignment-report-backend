@@ -57,7 +57,7 @@ router.post('/api/csv_upload', upload.single('myfile'), async (req, res, next) =
                 lecturer_id = parseInt(inserted_id.toString());
 
             }
-    
+    console.log(inserted_id)
             const result = await knex("public.lecturer_class_report")
                 .insert({
                     class_date: add_users.Class_Date,
@@ -70,7 +70,7 @@ router.post('/api/csv_upload', upload.single('myfile'), async (req, res, next) =
                     role: add_users.Role,
                     reg: add_users.Regd,
                     lecturer_id: lecturer_id
-                })
+                }).returning('*')
                // console.log(result)
             // if(i === 25)
 

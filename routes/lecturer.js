@@ -11,7 +11,7 @@ router.get('/api/get_users', async(req, res ) => {
         
     const name = req.query.name;
 
-    console.log(name)
+  //  console.log(name)
 
     const result = await knex("public.lecture")
         .select("*")
