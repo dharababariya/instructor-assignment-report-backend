@@ -9,7 +9,7 @@ const knex = require('../helper/knex');
 router.get('/api/get_users', async(req, res ) => {
     try {
         
-    const name = req.query.name;
+    // const name = req.query.name;
 
   //  console.log(name)
 
@@ -26,7 +26,7 @@ router.get('/api/get_users', async(req, res ) => {
 
 
 
-    console.log(resultDetail)
+   // console.log(resultDetail)
 
     return res
         .status(200)

@@ -48,6 +48,7 @@ router.post('/api/csv_upload', upload.single('myfile'), async (req, res, next) =
             const add_users = new_users[i];
             // console.log(add_users.Class_Date);
             let classDate = await add_users.Class_Date.toLowerCase();
+            
             if (classDate.includes('inactive!') || classDate.includes(',')) {
 
                 let inserted_id = await knex("public.lecture")
