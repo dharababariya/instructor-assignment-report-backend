@@ -15,6 +15,8 @@ router.get('/api/get_users', async(req, res ) => {
         .select("*")
         .where("name", '=', req.query.name);
 
+        console.log(result)
+
        console.log(result[0].id);
 
     const resultDetail = await knex("public.lecturer_class_report")
