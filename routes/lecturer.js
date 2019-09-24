@@ -9,11 +9,13 @@ const knex = require('../helper/knex');
 router.get('/api/get_users', async(req, res ) => {
     try {
         
-    
+    const name = req.query.name;
+
+    console.log(name)
 
     const result = await knex("public.lecture")
         .select("*")
-        .where("name", '=', req.params.name);
+        .where("name", '=', req.query.name);
 
         console.log(result)
 
